@@ -2,7 +2,7 @@ json-patch.erl: JSON Patch (RFC 6902) implementation for erlang data structures
 ===============================================================================
 
 this is a thing wrapper around `dotto <https://github.com/marianoguerra/dotto>`_
-that translated json patch json objects into dotto operations and then applies
+that translates json patch objects into dotto operations and then applies
 them to a given object.
 
 it's useful if you have a rest API and want to implement PATCH method with
