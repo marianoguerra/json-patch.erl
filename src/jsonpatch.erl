@@ -1,14 +1,11 @@
 -module(jsonpatch).
--export([parse/1, parse_raw/1, patch/2, parse_path/1]).
+-export([parse/1, patch/2, parse_path/1]).
 
-parse_raw(RawPatch) -> 
+parse(RawPatch) when is_binary(RawPatch) ->
     Data = jsxn:decode(RawPatch),
-    parse(Data).
+    parse(Data);
 
-parse(Data) ->
-    if is_list(Data) -> parse(Data, []);
-       true -> {error, notarray}
-    end.
+parse(Data) -> parse(Data, []).
 
 parse([], Accum) -> lists:reverse(Accum);
 parse([#{<<"op">> := <<"add">>, <<"path">> := Path, <<"value">> := Val}|T], Accum) ->
