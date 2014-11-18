@@ -1,4 +1,4 @@
-{application, json-patch, [
+{application, jsonpatch, [
 	{description, ""},
 	{vsn, "0.1.0"},
 	{id, "git"},
