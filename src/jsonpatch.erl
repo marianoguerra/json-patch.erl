@@ -7,7 +7,8 @@ parse(RawPatch) when is_binary(RawPatch) ->
 
 parse(Data) -> parse(Data, []).
 
-parse([], Accum) -> lists:reverse(Accum);
+parse([], Accum) -> {ok, lists:reverse(Accum)};
+
 parse([#{<<"op">> := <<"add">>, <<"path">> := Path, <<"value">> := Val}|T], Accum) ->
     parse(T, [{add, parse_path(Path), Val}|Accum]);
 parse([#{<<"op">> := <<"remove">>, <<"path">> := Path}|T], Accum) ->
@@ -19,7 +20,9 @@ parse([#{<<"op">> := <<"move">>, <<"path">> := To, <<"from">> := From}|T], Accum
 parse([#{<<"op">> := <<"copy">>, <<"path">> := To, <<"from">> := From}|T], Accum) ->
     parse(T, [{copy, parse_path(From), parse_path(To)}|Accum]);
 parse([#{<<"op">> := <<"test">>, <<"path">> := Path, <<"value">> := Val}|T], Accum) ->
-    parse(T, [{test, parse_path(Path), Val}|Accum]).
+    parse(T, [{test, parse_path(Path), Val}|Accum]);
+parse([Other|_T], _Accum) ->
+    {error, {invalidaction, Other}}.
 
 parse_path(PathStr) ->
     lists:map(fun maybe_parse_integer/1, tl(binary:split(PathStr, <<"/">>, [global]))).

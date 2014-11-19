@@ -23,7 +23,7 @@ see how it works
 
 just read the RFC or look the test/tests.json file, the usage is::
 
-    ParsedPatch = jsonpatch:parse(JsonPatch),
+    {ok, ParsedPatch} = jsonpatch:parse(JsonPatch),
     {ok, Result} = jsonpatch:patch(ParsedPatch, Obj).
 
 JsonPatch can be a binary containing a json patch object or an erlang data
