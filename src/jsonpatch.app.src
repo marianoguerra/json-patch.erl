@@ -6,7 +6,6 @@
 	{registered, []},
 	{applications, [
 		kernel,
-		stdlib,
-        jsxn
+		stdlib
 	]}
 ]}.
