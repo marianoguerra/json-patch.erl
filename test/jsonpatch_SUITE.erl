@@ -25,6 +25,7 @@ parse_with_number(_) ->
 parse_wrong_patch_fails(_) ->
     BadAction = #{name => "bob"},
     GoodAction = #{<<"op">> => <<"test">>, <<"path">> => <<"/a">>, <<"value">> => 12},
+    {error, {invalidformat, 42}} = jsonpatch:parse(<<"42">>),
     {error, {invalidaction, BadAction}} = jsonpatch:parse([BadAction]),
     {error, {invalidaction, BadAction}} = jsonpatch:parse([BadAction, GoodAction]),
     {error, {invalidaction, BadAction}} = jsonpatch:parse([GoodAction, BadAction]),

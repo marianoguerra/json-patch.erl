@@ -22,7 +22,9 @@ parse([#{<<"op">> := <<"copy">>, <<"path">> := To, <<"from">> := From}|T], Accum
 parse([#{<<"op">> := <<"test">>, <<"path">> := Path, <<"value">> := Val}|T], Accum) ->
     parse(T, [{test, parse_path(Path), Val}|Accum]);
 parse([Other|_T], _Accum) ->
-    {error, {invalidaction, Other}}.
+    {error, {invalidaction, Other}};
+parse(Other, _Accum) ->
+    {error, {invalidformat, Other}}.
 
 parse_path(PathStr) ->
     lists:map(fun maybe_parse_integer/1, tl(binary:split(PathStr, <<"/">>, [global]))).
