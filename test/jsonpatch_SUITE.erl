@@ -51,8 +51,8 @@ test_json_file(Path) ->
                        ct:print("SKIP: disabled test '~s'", [Title]),
                        true;
                    true ->
-                       {ok, ParsedPatch} = jsonpatch:parse(Patch),
                        PatchResult = try
+                                         {ok, ParsedPatch} = jsonpatch:parse(Patch),
                                          jsonpatch:patch(ParsedPatch, Input)
                                      catch
                                         Type:ExError -> {error, {Type, ExError}}
