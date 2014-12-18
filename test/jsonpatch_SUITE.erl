@@ -4,8 +4,7 @@
 
 all() -> [parse_empty_path, parse_slash, parse_one_item, parse_two_items,
           parse_with_number, parse_wrong_patch_fails,
-
-          test_json_file].
+          test_spec_tests, test_json_tests].
 
 parse_empty_path(_) ->
     [] = jsonpatch:parse_path(<<"">>).
@@ -31,8 +30,15 @@ parse_wrong_patch_fails(_) ->
     {error, {invalidaction, BadAction}} = jsonpatch:parse([GoodAction, BadAction]),
     {error, {invalidaction, BadAction}} = jsonpatch:parse([GoodAction, BadAction, GoodAction]).
 
-test_json_file(_) ->
-    {ok, Data} = file:read_file("../../test/tests.json"),
+test_json_tests(_) ->
+    test_json_file("../../test/tests.json").
+
+test_spec_tests(_) ->
+    test_json_file("../../test/spec_tests.json").
+
+% this is not a top level test
+test_json_file(Path) ->
+    {ok, Data} = file:read_file(Path),
     JsonTests = jsxn:decode(Data),
     Results = lists:map(fun (#{<<"doc">> := Input, <<"patch">> := Patch}=Test) ->
                 Title = maps:get(<<"comment">>, Test, <<"test">>),
