@@ -33,7 +33,12 @@ parse_path(PathStr) ->
 maybe_parse_integer(B) ->
     case re:run(B,"^[0-9]+$") of
         {match, _} -> binary_to_integer(B);
-        _ -> B
+        _ ->
+            B1 = re:replace(B, "\~1", "/"),
+            B2 = re:replace(B1, "\~0", "~"),
+            if is_list(B2) -> list_to_binary(B2);
+               true -> B2
+            end
     end.
 
 patch(Patch, Obj) when is_list(Patch) ->
