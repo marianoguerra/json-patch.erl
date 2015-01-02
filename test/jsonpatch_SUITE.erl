@@ -39,7 +39,7 @@ test_spec_tests(_) ->
 % this is not a top level test
 test_json_file(Path) ->
     {ok, Data} = file:read_file(Path),
-    JsonTests = jsxn:decode(Data),
+    JsonTests = jsx:decode(Data, [return_maps]),
     Results = lists:map(fun (#{<<"doc">> := Input, <<"patch">> := Patch}=Test) ->
                 Title = maps:get(<<"comment">>, Test, <<"test">>),
                 ErrorVal = maps:get(<<"error">>, Test, false),

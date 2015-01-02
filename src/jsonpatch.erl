@@ -2,7 +2,7 @@
 -export([parse/1, patch/2, parse_path/1]).
 
 parse(RawPatch) when is_binary(RawPatch) ->
-    Data = jsxn:decode(RawPatch),
+    Data = jsx:decode(RawPatch, [return_maps]),
     parse(Data);
 
 parse(Data) -> parse(Data, []).

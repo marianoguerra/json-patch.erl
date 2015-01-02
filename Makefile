@@ -1,5 +1,5 @@
 PROJECT = jsonpatch
-DEPS = jsx jsxn dotto
+DEPS = jsx dotto
 dep_dotto = git https://github.com/marianoguerra/dotto master
-dep_jsxn = git https://github.com/talentdeficit/jsxn v2.1.1
+dep_jsx = git https://github.com/talentdeficit/jsx v2.4.0
 include erlang.mk
