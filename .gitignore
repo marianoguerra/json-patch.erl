@@ -2,3 +2,6 @@
 deps/
 ebin/
 logs/
+.erlang.mk/
+jsonpatch.d
+
