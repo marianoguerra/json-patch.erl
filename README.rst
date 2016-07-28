@@ -11,6 +11,13 @@ it's useful if you have a rest API and want to implement PATCH method with
 if you want to manipulate erlang data structures from code it's better to use
 dotto directly.
 
+build
+-----
+
+::
+
+    make
+
 run tests
 ---------
 
